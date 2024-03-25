@@ -99,9 +99,9 @@ class DjangoConnectionField(ConnectionField):
         assert issubclass(
             _type, DjangoObjectType
         ), "DjangoConnectionField only accepts DjangoObjectType types"
-        assert _type._meta.connection, "The type {} doesn't have a connection".format(
-            _type.__name__
-        )
+        assert (
+            _type._meta.connection
+        ), f"The type {_type.__name__} doesn't have a connection"
         connection_type = _type._meta.connection
         if non_null:
             return NonNull(connection_type)
@@ -202,27 +202,27 @@ class DjangoConnectionField(ConnectionField):
         before = args.get("before")
 
         if enforce_first_or_last:
-            assert first or last, (
-                "You must provide a `first` or `last` value to properly paginate the `{}` connection."
-            ).format(info.field_name)
+            assert (
+                first or last
+            ), f"You must provide a `first` or `last` value to properly paginate the `{info.field_name}` connection."
 
         if max_limit:
             if first:
-                assert first <= max_limit, (
-                    "Requesting {} records on the `{}` connection exceeds the `first` limit of {} records."
-                ).format(first, info.field_name, max_limit)
+                assert (
+                    first <= max_limit
+                ), f"Requesting {first} records on the `{info.field_name}` connection exceeds the `first` limit of {max_limit} records."
                 args["first"] = min(first, max_limit)
 
             if last:
-                assert last <= max_limit, (
-                    "Requesting {} records on the `{}` connection exceeds the `last` limit of {} records."
-                ).format(last, info.field_name, max_limit)
+                assert (
+                    last <= max_limit
+                ), f"Requesting {last} records on the `{info.field_name}` connection exceeds the `last` limit of {max_limit} records."
                 args["last"] = min(last, max_limit)
 
         if offset is not None:
-            assert before is None, (
-                "You can't provide a `before` value at the same time as an `offset` value to properly paginate the `{}` connection."
-            ).format(info.field_name)
+            assert (
+                before is None
+            ), f"You can't provide a `before` value at the same time as an `offset` value to properly paginate the `{info.field_name}` connection."
 
         # eventually leads to DjangoObjectType's get_queryset (accepts queryset)
         # or a resolve_foo (does not accept queryset)

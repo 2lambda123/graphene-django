@@ -274,9 +274,9 @@ class GraphQLView(View):
             try:
                 request_json = json.loads(body)
                 if self.batch:
-                    assert isinstance(request_json, list), (
-                        "Batch requests should receive a list, but received {}."
-                    ).format(repr(request_json))
+                    assert isinstance(
+                        request_json, list
+                    ), f"Batch requests should receive a list, but received {repr(request_json)}."
                     assert (
                         len(request_json) > 0
                     ), "Received an empty list in the batch request."
@@ -330,9 +330,7 @@ class GraphQLView(View):
             raise HttpError(
                 HttpResponseNotAllowed(
                     ["POST"],
-                    "Can only perform a {} operation from a POST request.".format(
-                        operation_ast.operation.value
-                    ),
+                    f"Can only perform a {operation_ast.operation.value} operation from a POST request.",
                 )
             )
 
@@ -355,9 +353,9 @@ class GraphQLView(View):
                 "middleware": self.get_middleware(request),
             }
             if self.execution_context_class:
-                execute_options[
-                    "execution_context_class"
-                ] = self.execution_context_class
+                execute_options["execution_context_class"] = (
+                    self.execution_context_class
+                )
 
             if (
                 operation_ast is not None
