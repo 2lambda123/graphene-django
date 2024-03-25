@@ -55,9 +55,7 @@ class DjangoDebugMiddleware:
                 context.django_debug = DjangoDebugContext()
             except Exception:
                 raise Exception(
-                    "DjangoDebug need the context to be writable, context received: {}.".format(
-                        context.__class__.__name__
-                    )
+                    f"DjangoDebug need the context to be writable, context received: {context.__class__.__name__}."
                 )
         if info.schema.get_type("DjangoDebug") == info.return_type:
             return context.django_debug.get_debug_result()

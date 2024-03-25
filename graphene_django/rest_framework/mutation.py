@@ -147,9 +147,7 @@ class SerializerMutation(ClientIDMutation):
                 partial = False
             else:
                 raise Exception(
-                    'Invalid update operation. Input parameter "{}" required.'.format(
-                        lookup_field
-                    )
+                    f'Invalid update operation. Input parameter "{lookup_field}" required.'
                 )
 
             return {
