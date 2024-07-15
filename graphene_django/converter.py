@@ -117,11 +117,7 @@ def generate_enum_name(django_model_meta, field):
     elif graphene_settings.DJANGO_CHOICE_FIELD_ENUM_V2_NAMING is True:
         name = to_camel_case(f"{django_model_meta.object_name}_{field.name}")
     else:
-        name = "{app_label}{object_name}{field_name}Choices".format(
-            app_label=to_camel_case(django_model_meta.app_label.title()),
-            object_name=django_model_meta.object_name,
-            field_name=to_camel_case(field.name.title()),
-        )
+        name = f"{to_camel_case(django_model_meta.app_label.title())}{django_model_meta.object_name}{to_camel_case(field.name.title())}Choices"
     return name
 
 

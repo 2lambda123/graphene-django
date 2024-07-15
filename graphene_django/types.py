@@ -72,29 +72,15 @@ def validate_fields(type_, model, fields, only_fields, exclude_fields):
 
         if hasattr(model, name):
             warnings.warn(
-                (
-                    'Field name "{field_name}" matches an attribute on Django model "{app_label}.{object_name}" '
-                    "but it's not a model field so Graphene cannot determine what type it should be. "
-                    'Either define the type of the field on DjangoObjectType "{type_}" or remove it from the "fields" list.'
-                ).format(
-                    field_name=name,
-                    app_label=model._meta.app_label,
-                    object_name=model._meta.object_name,
-                    type_=type_,
-                )
+                f'Field name "{name}" matches an attribute on Django model "{model._meta.app_label}.{model._meta.object_name}" '
+                "but it's not a model field so Graphene cannot determine what type it should be. "
+                f'Either define the type of the field on DjangoObjectType "{type_}" or remove it from the "fields" list.'
             )
 
         else:
             warnings.warn(
-                (
-                    'Field name "{field_name}" doesn\'t exist on Django model "{app_label}.{object_name}". '
-                    'Consider removing the field from the "fields" list of DjangoObjectType "{type_}" because it has no effect.'
-                ).format(
-                    field_name=name,
-                    app_label=model._meta.app_label,
-                    object_name=model._meta.object_name,
-                    type_=type_,
-                )
+                f'Field name "{name}" doesn\'t exist on Django model "{model._meta.app_label}.{model._meta.object_name}". '
+                f'Consider removing the field from the "fields" list of DjangoObjectType "{type_}" because it has no effect.'
             )
 
     # Validate exclude fields
@@ -108,15 +94,8 @@ def validate_fields(type_, model, fields, only_fields, exclude_fields):
         else:
             if not hasattr(model, name):
                 warnings.warn(
-                    (
-                        'Django model "{app_label}.{object_name}" does not have a field or attribute named "{field_name}". '
-                        'Consider removing the field from the "exclude" list of DjangoObjectType "{type_}" because it has no effect'
-                    ).format(
-                        field_name=name,
-                        app_label=model._meta.app_label,
-                        object_name=model._meta.object_name,
-                        type_=type_,
-                    )
+                    f'Django model "{model._meta.app_label}.{model._meta.object_name}" does not have a field or attribute named "{name}". '
+                    f'Consider removing the field from the "exclude" list of DjangoObjectType "{type_}" because it has no effect'
                 )
 
 
@@ -150,9 +129,9 @@ class DjangoObjectType(ObjectType):
         _meta=None,
         **options,
     ):
-        assert is_valid_django_model(model), (
-            'You need to pass a valid Django Model in {}.Meta, received "{}".'
-        ).format(cls.__name__, model)
+        assert is_valid_django_model(
+            model
+        ), f'You need to pass a valid Django Model in {cls.__name__}.Meta, received "{model}".'
 
         if not registry:
             registry = get_global_registry()
