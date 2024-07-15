@@ -20,8 +20,6 @@ class TypedFilter(Filter):
         if input_type is not None:
             if not callable(getattr(input_type, "get_type", None)):
                 raise ValueError(
-                    "Wrong `input_type` for {}: it only accepts graphene types, got {}".format(
-                        self.__class__.__name__, input_type
-                    )
+                    f"Wrong `input_type` for {self.__class__.__name__}: it only accepts graphene types, got {input_type}"
                 )
         return input_type
