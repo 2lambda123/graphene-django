@@ -132,9 +132,9 @@ class GraphQLView(View):
         if subscription_path is None:
             self.subscription_path = graphene_settings.SUBSCRIPTION_PATH
 
-        assert isinstance(
-            self.schema, Schema
-        ), "A Schema is required to be provided to GraphQLView."
+        assert isinstance(self.schema, Schema), (
+            "A Schema is required to be provided to GraphQLView."
+        )
         assert not all((graphiql, batch)), "Use either graphiql or batch processing"
 
         self.validation_rules = validation_rules
@@ -274,16 +274,16 @@ class GraphQLView(View):
             try:
                 request_json = json.loads(body)
                 if self.batch:
-                    assert isinstance(
-                        request_json, list
-                    ), f"Batch requests should receive a list, but received {repr(request_json)}."
-                    assert (
-                        len(request_json) > 0
-                    ), "Received an empty list in the batch request."
+                    assert isinstance(request_json, list), (
+                        f"Batch requests should receive a list, but received {repr(request_json)}."
+                    )
+                    assert len(request_json) > 0, (
+                        "Received an empty list in the batch request."
+                    )
                 else:
-                    assert isinstance(
-                        request_json, dict
-                    ), "The received data is not a valid JSON query."
+                    assert isinstance(request_json, dict), (
+                        "The received data is not a valid JSON query."
+                    )
                 return request_json
             except AssertionError as e:
                 raise HttpError(HttpResponseBadRequest(str(e)))

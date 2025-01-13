@@ -6,9 +6,9 @@ class Registry:
     def register(self, cls):
         from .types import DjangoObjectType
 
-        assert issubclass(
-            cls, DjangoObjectType
-        ), f'Only DjangoObjectTypes can be registered, received "{cls.__name__}"'
+        assert issubclass(cls, DjangoObjectType), (
+            f'Only DjangoObjectTypes can be registered, received "{cls.__name__}"'
+        )
         assert cls._meta.registry == self, "Registry for a Model have to match."
         # assert self.get_type_for_model(cls._meta.model) == cls, (
         #     'Multiple DjangoObjectTypes registered for "{}"'.format(cls._meta.model)

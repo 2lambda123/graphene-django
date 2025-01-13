@@ -23,12 +23,12 @@ def test_json_files_are_canonical(dump_mock):
     open_mock.assert_called_once()
 
     dump_mock.assert_called_once()
-    assert dump_mock.call_args[1][
-        "sort_keys"
-    ], "json.mock() should be used to sort the output"
-    assert (
-        dump_mock.call_args[1]["indent"] > 0
-    ), "output should be pretty-printed by default"
+    assert dump_mock.call_args[1]["sort_keys"], (
+        "json.mock() should be used to sort the output"
+    )
+    assert dump_mock.call_args[1]["indent"] > 0, (
+        "output should be pretty-printed by default"
+    )
 
 
 def test_generate_graphql_file_on_call_graphql_schema():

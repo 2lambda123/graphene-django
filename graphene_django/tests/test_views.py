@@ -425,7 +425,7 @@ def test_inherited_class_with_attributes_works(client):
     # Check schema and pretty attributes work
     response = client.post(url_string(inherited_url, query="{test}"))
     assert response.content.decode() == (
-        "{\n" '  "data": {\n' '    "test": "Hello World"\n' "  }\n" "}"
+        '{\n  "data": {\n    "test": "Hello World"\n  }\n}'
     )
 
     # Check graphiql works
@@ -438,7 +438,7 @@ def test_supports_pretty_printing(client):
     response = client.get(url_string(query="{test}"))
 
     assert response.content.decode() == (
-        "{\n" '  "data": {\n' '    "test": "Hello World"\n' "  }\n" "}"
+        '{\n  "data": {\n    "test": "Hello World"\n  }\n}'
     )
 
 
@@ -446,7 +446,7 @@ def test_supports_pretty_printing_by_request(client):
     response = client.get(url_string(query="{test}", pretty="1"))
 
     assert response.content.decode() == (
-        "{\n" '  "data": {\n' '    "test": "Hello World"\n' "  }\n" "}"
+        '{\n  "data": {\n    "test": "Hello World"\n  }\n}'
     )
 
 

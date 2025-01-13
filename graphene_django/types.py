@@ -129,9 +129,9 @@ class DjangoObjectType(ObjectType):
         _meta=None,
         **options,
     ):
-        assert is_valid_django_model(
-            model
-        ), f'You need to pass a valid Django Model in {cls.__name__}.Meta, received "{model}".'
+        assert is_valid_django_model(model), (
+            f'You need to pass a valid Django Model in {cls.__name__}.Meta, received "{model}".'
+        )
 
         if not registry:
             registry = get_global_registry()
@@ -217,9 +217,9 @@ class DjangoObjectType(ObjectType):
             )
 
         if connection is not None:
-            assert issubclass(
-                connection, Connection
-            ), f"The connection must be a Connection. Received {connection.__name__}"
+            assert issubclass(connection, Connection), (
+                f"The connection must be a Connection. Received {connection.__name__}"
+            )
 
         if not _meta:
             _meta = DjangoObjectTypeOptions(cls)
