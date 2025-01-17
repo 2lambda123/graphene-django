@@ -65,9 +65,9 @@ def assert_arguments(field, *arguments):
     ignore = ("offset", "after", "before", "first", "last", "order_by")
     args = get_args(field)
     actual = [name for name in args if name not in ignore and not name.startswith("_")]
-    assert set(arguments) == set(
-        actual
-    ), f"Expected arguments ({arguments}) did not match actual ({actual})"
+    assert set(arguments) == set(actual), (
+        f"Expected arguments ({arguments}) did not match actual ({actual})"
+    )
 
 
 def assert_orderable(field):

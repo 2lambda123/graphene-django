@@ -132,9 +132,9 @@ def test_write_only_field():
     )
 
     assert hasattr(result, "cool_name")
-    assert not hasattr(
-        result, "password"
-    ), "'password' is write_only field and shouldn't be visible"
+    assert not hasattr(result, "password"), (
+        "'password' is write_only field and shouldn't be visible"
+    )
 
 
 def test_write_only_field_using_extra_kwargs():
@@ -153,9 +153,9 @@ def test_write_only_field_using_extra_kwargs():
     )
 
     assert hasattr(result, "cool_name")
-    assert not hasattr(
-        result, "password"
-    ), "'password' is write_only field and shouldn't be visible"
+    assert not hasattr(result, "password"), (
+        "'password' is write_only field and shouldn't be visible"
+    )
 
 
 def test_read_only_fields():
@@ -174,9 +174,9 @@ def test_read_only_fields():
 
     assert "password" in MyMutation.Input._meta.fields
     assert "id" in MyMutation.Input._meta.fields
-    assert (
-        "cool_name" not in MyMutation.Input._meta.fields
-    ), "'cool_name' is read_only field and shouldn't be on arguments"
+    assert "cool_name" not in MyMutation.Input._meta.fields, (
+        "'cool_name' is read_only field and shouldn't be on arguments"
+    )
 
 
 def test_hidden_fields():
@@ -189,9 +189,9 @@ def test_hidden_fields():
             serializer_class = SerializerWithHiddenField
 
     assert "cool_name" in MyMutation.Input._meta.fields
-    assert (
-        "user" not in MyMutation.Input._meta.fields
-    ), "'user' is hidden field and shouldn't be on arguments"
+    assert "user" not in MyMutation.Input._meta.fields, (
+        "'user' is hidden field and shouldn't be on arguments"
+    )
 
 
 def test_nested_model():
